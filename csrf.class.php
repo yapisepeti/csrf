@@ -37,10 +37,10 @@ class CSRF {
 	 * @param int $length
 	 * @return array
 	*/
-	public function generate(int $time = 3600, int $length = 10) {
+	public function generate(int $time = 3600, int $length = 36) {
 		if(isset($_SESSION["security"]["csrf"])) {
-			//$token_id = $this->random($length);
-            $token_id = hash('sha256', $this->random(1337));
+			$token_id = "csrf_".$this->random($length);
+            //$token_id = hash('sha256', $this->random(1337));
 			$token = $this->set_token();
 			$_SESSION["security"]["csrf"][$token_id] = array("token" => $token, "time" => (time()+$time));
 			return array("key" => $token_id, "token" => $token);
